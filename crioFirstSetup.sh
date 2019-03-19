@@ -18,8 +18,8 @@ fi
 cat /etc/opkg/base-feeds.conf
 
 #Update and install useful stuff
-sudo opkg update
-sudo opkg install nfs-utils-client git vim rsync
+opkg update
+opkg install nfs-utils-client git vim rsync
 
 
 
