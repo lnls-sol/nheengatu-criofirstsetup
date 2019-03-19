@@ -2,4 +2,6 @@
 
 Run this script to setup your cleanly formatted CRIO and creates a newuser with sudo.
 
-> crioFirstSetup.sh <username>
+## Run
+
+    $ crioFirstSetup.sh <username>
