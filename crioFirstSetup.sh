@@ -27,13 +27,20 @@ opkg install nfs-utils-client git vim rsync
 echo "Adding user $USER"
 useradd $USER
 
+echo "Insert <$USER> new account password"
+passwd $USER
+
 #Add user to sudo group
 usermod -aG sudo $USER
+
+#Add to ni  group so that can open shared memory
+usermod -aG ni $USER
+
 sed -i 's/# %sudo\tALL=(ALL) ALL/%sudo\tALL=(ALL) ALL/g' /etc/sudoers
 
 #Move home folder to ABTLUS
 mkdir /home/ABTLUS
-rsync -aXS /home/$USER /home/ABTLUS/$USER
+#rsync -aXS /home/$USER /home/ABTLUS/$USER
 usermod -m -d /home/ABTLUS/$USER $USER
 
 #Surpass NI terminal bug
