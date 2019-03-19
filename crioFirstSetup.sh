@@ -36,3 +36,6 @@ mkdir /home/ABTLUS
 rsync -aXS /home/$USER /home/ABTLUS/$USER
 usermod -m -d /home/ABTLUS/$USER $USER
 
+#Surpass NI terminal bug
+chmod 755 /bin/hostname
+
