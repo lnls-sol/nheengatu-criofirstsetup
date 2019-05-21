@@ -46,3 +46,47 @@ usermod -m -d /home/ABTLUS/$USER $USER
 #Surpass NI terminal bug
 chmod 755 /bin/hostname
 
+
+echo "------------DONE SETTING UP USER AND REPOSITORIES---------------"
+echo ""
+echo ""
+echo ""
+
+echo "-------------SETTING UP IOCS SCRIPT---------------"
+sudo cp iocs /etc/init.d
+sudo cp init-functions /etc/init.d
+sudo ln -s /etc/init.d/iocs /bin/
+sudo /usr/sbin/update-rc.d iocs defaults
+echo "------------DONE SETTING UP IOCS SCRIPT---------------"
+
+
+echo ""
+echo ""
+echo ""
+
+echo "-------------SETTING UP NFS---------------"
+mkdir /usr/local/epics
+mkdir /usr/local/epics-nfs
+
+BL=`hostname | /usr/bin/cut -f1 -d'-'` 
+HOST=`hostname | /usr/bin/cut -f2 -d'-'` 
+
+echo "10.2.105.218:/usr/local/epics-nfs       /usr/local/epics-nfs    nfs     defaults        0       0" >> /etc/fstab
+echo "10.2.105.218:/usr/local/setup-bl/$BL/$HOST/epics       /usr/local/epics    nfs     defaults        0       0" >> /etc/fstab
+
+mount -a
+
+cp epics.sh /etc/profile.d
+
+echo "/usr/local/epics/base/lib/linux-x86_64" > /etc/ld.so.conf.d/epics.conf
+echo "/usr/local/epics-nfs/lib/crio-libs/lib" >> /etc/ld.so.conf.d/epics.conf
+ldconfig
+
+. /etc/profile.d/epics.sh
+
+cp S95mountnfs /etc/rc5.d
+
+# umount nfs partitions before stop server (this prevent bug on reboot/shutdown)
+cp K19umount /etc/rc6.d/
+cp K19umount /etc/rc0.d/
+echo "-------------DONE SETTING UP NFS---------------"
