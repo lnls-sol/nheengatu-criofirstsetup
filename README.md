@@ -4,4 +4,4 @@ Run this script to setup your cleanly formatted CRIO and creates a newuser with 
 
 ## Run
 
-    $ crioFirstSetup.sh <username>
+    $ crioFirstSetup.sh
