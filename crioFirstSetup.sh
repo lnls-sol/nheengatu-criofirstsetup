@@ -1,11 +1,17 @@
 #!/bin/bash
 
 USER=$1
+PASS=$2
 
 if [ -z $USER ]
     then
-        echo "No user name inserted to create. usage : ./setup.sh <USERNAME>"
-        exit
+        echo "No user name inserted to create. default will be used: user:SOL"
+        USER=SOL
+fi
+if [ -z $PASS ]
+    then
+        echo "No password is inserted. default will be used: pass:solS0L"
+	PASS=solS0L
 fi
 # Check firmware if updated. 
 if [`uname -r` != "4.9.47-rt37-6.1.0f0"] 
@@ -28,7 +34,7 @@ echo "Adding user $USER"
 useradd $USER
 
 echo "Insert <$USER> new account password"
-passwd $USER
+echo -e "$PASS\n$PASS\n" | passwd $USER
 
 #Add user to sudo group
 usermod -aG sudo $USER
