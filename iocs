@@ -45,7 +45,7 @@ start() {
         iocName=`echo $iocCmd | rev | cut -f1 -d/ | cut -f2 -d. | rev`
         iocBinary=`head -1 $iocCmd | cut -c3-`
         # Check if IOC is not already running... if yes, then stop previous instance(s) and child(ren)
-        for pidparent in `ps -ef |grep $iocName |grep procServ |awk '{print $2}'`
+        for pidparent in `ps -ef |grep $iocName |grep procServ |awk '{print $1}'`
         do
             echo -e "\tThere was a previous instance of $iocName running; $pidparent will be stopped before to start a new one!"
             if pgrep -P $pidparent > /dev/null 2>&1; then
@@ -99,14 +99,14 @@ startioc() {
         booltrue=true
         while [ "$booltrue" = "true" ]
         do
-            if netstat -anpo |grep $port > /dev/null; then
+            if netstat -an |grep $port > /dev/null; then
                 let "port += 10"
             else
                 iocOrScriptName=$1
                 iocCmd=$appsConfigDir/$iocOrScriptName".cmd"
                 scriptSh=$appsConfigDir/$iocOrScriptName".sh"
                 # Check if IOC is not already running... if yes, then stop previous instance(s) and child(ren)
-                for pidparent in `ps -ef |grep $iocOrScriptName |grep procServ |awk '{print $2}'`
+                for pidparent in `ps -ef |grep $iocOrScriptName |grep procServ |awk '{print $1}'`
                 do
                     echo -e "\tThere was a previous instance of $iocName running; $pidparent will be stopped before to start a new one!"
                     if pgrep -P $pidparent > /dev/null 2>&1; then
@@ -204,7 +204,7 @@ stopioc() {
 list() {
     echo
     echo Showing Running IOCs:
-    for pid in `sudo netstat -anpo |grep LISTEN |grep "procServ" |awk '{print $7}' |cut -f1 -d/`
+    for pid in `sudo netstat -an |grep LISTEN |grep "procServ" |awk '{print $7}' |cut -f1 -d/`
     do
         iocName=`ps |grep $pid |awk '{print $6}'`
         iocPort=`ps |grep $pid |awk '{print $9}'`
