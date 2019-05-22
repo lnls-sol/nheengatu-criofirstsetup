@@ -30,10 +30,12 @@ procServBin=/usr/local/epics-nfs/extensions/R3.15.6/src/procServ-2.6.1/procServ
 start() {
     echo
     if [ ! -d /var/lock/subsys/IOCS ]; then
-        mkdir /var/lock/subsys/IOCS
+        sudo mkdir /var/lock/subsys/IOCS
+        sudo chmod 777 /var/lock/subsys/IOCS
     fi
     if [ ! -d /var/run/IOCS ]; then
-        mkdir /var/run/IOCS
+        sudo mkdir /var/run/IOCS
+        sudo chmod 777 /var/run/IOCS
     fi    
     echo Starting IOCS Services:
 
@@ -56,8 +58,8 @@ start() {
             echo -e "\t Now, Killing parent process: $pidparent"
                 sudo kill -9 $pidparent 2> /dev/null 
                 ### Now, delete the lock file ###
-                sudo rm -f /var/lock/subsys/IOCS/$iocName
-            sudo rm -f /var/run/IOCS/$iocName
+                rm -f /var/lock/subsys/IOCS/$iocName
+            rm -f /var/run/IOCS/$iocName
         done
         echo -e "\t Starting: $iocName"
         if [ -f $iocBinary ]; then
@@ -117,8 +119,8 @@ startioc() {
                     echo -e "\t Now, Killing parent process: $pidparent"
                         sudo kill -9 $pidparent 2> /dev/null 
                         ### Now, delete the lock file ###
-                        sudo rm -f /var/lock/subsys/IOCS/$iocOrScriptName
-                    sudo rm -f /var/run/IOCS/$iocOrScriptName
+                        rm -f /var/lock/subsys/IOCS/$iocOrScriptName
+                    rm -f /var/run/IOCS/$iocOrScriptName
                 done
                 if [ -f $iocCmd ] || [ -f $scriptSh ]; then
                     boolExecute=true
