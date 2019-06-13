@@ -201,6 +201,7 @@ stopioc() {
     killproc -p $pidfile
     echo
 }
+#List does not work in CRIO yet
 list() {
     echo
     echo Showing Running IOCs:
