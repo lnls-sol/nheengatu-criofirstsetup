@@ -52,11 +52,11 @@ start() {
                 for j in `pgrep -P $pidparent 2> /dev/null`
                 do
                     echo -e "\t First killing child process: $j"
-                    sudo kill -9 $j 2> /dev/null
+                    kill -9 $j 2> /dev/null
                 done
             fi
             echo -e "\t Now, Killing parent process: $pidparent"
-                sudo kill -9 $pidparent 2> /dev/null 
+                kill -9 $pidparent 2> /dev/null 
                 ### Now, delete the lock file ###
                 rm -f /var/lock/subsys/IOCS/$iocName
             rm -f /var/run/IOCS/$iocName
@@ -113,11 +113,11 @@ startioc() {
                         for j in `pgrep -P $pidparent 2> /dev/null`
                         do
                             echo -e "\t First killing child process: $j"
-                            sudo kill -9 $j 2> /dev/null
+                            kill -9 $j 2> /dev/null
                         done
                     fi
                     echo -e "\t Now, Killing parent process: $pidparent"
-                        sudo kill -9 $pidparent 2> /dev/null 
+                        kill -9 $pidparent 2> /dev/null 
                         ### Now, delete the lock file ###
                         rm -f /var/lock/subsys/IOCS/$iocOrScriptName
                     rm -f /var/run/IOCS/$iocOrScriptName
@@ -204,7 +204,7 @@ stopioc() {
 list() {
     echo
     echo Showing Running IOCs:
-    for pid in `sudo netstat -an |grep LISTEN |grep "procServ" |awk '{print $7}' |cut -f1 -d/`
+    for pid in `netstat -an |grep LISTEN |grep "procServ" |awk '{print $7}' |cut -f1 -d/`
     do
         iocName=`ps |grep $pid |awk '{print $6}'`
         iocPort=`ps |grep $pid |awk '{print $9}'`
