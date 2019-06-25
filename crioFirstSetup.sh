@@ -54,23 +54,20 @@ chmod 755 /bin/hostname
 
 
 echo "------------DONE SETTING UP USER AND REPOSITORIES---------------"
-echo ""
-echo ""
-echo ""
-
+echo "..."
 echo "-------------SETTING UP IOCS SCRIPT---------------"
 sudo cp iocs /etc/init.d
 sudo cp init-functions /etc/init.d
 sudo ln -s /etc/init.d/iocs /bin/
 sudo /usr/sbin/update-rc.d iocs defaults
 echo "------------DONE SETTING UP IOCS SCRIPT---------------"
-
-
-echo ""
-echo ""
-echo ""
-
+echo "..."
+echo "-------------SETTING UP AutoSave folder ---------------"
+mkdir -p /opt/autosave
+chmod 777 /opt/autosave
+echo "..."
 echo "-------------SETTING UP NFS---------------"
+echo "..."
 mkdir /usr/local/epics
 mkdir /usr/local/epics-nfs
 
