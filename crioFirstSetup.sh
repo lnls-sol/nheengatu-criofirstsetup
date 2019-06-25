@@ -82,7 +82,7 @@ mount -a
 cp epics.sh /etc/profile.d
 
 echo "/usr/local/epics/base/lib/linux-x86_64" > /etc/ld.so.conf.d/epics.conf
-echo "/usr/local/epics-nfs/lib/crio-libs/2019_06_11_01/lib" >> /etc/ld.so.conf.d/epics.conf
+echo "/usr/local/epics-nfs/lib/crio-libs/2019_06_25_01/lib" >> /etc/ld.so.conf.d/epics.conf
 ldconfig
 
 . /etc/profile.d/epics.sh
