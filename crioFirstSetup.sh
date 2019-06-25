@@ -10,8 +10,8 @@ if [ -z $USER ]
 fi
 if [ -z $PASS ]
     then
-        echo "No password is inserted. default will be used: pass:solS0L"
-	PASS=solS0L
+        echo "No password is inserted. default will be used: pass:senhadosol"
+	PASS=senhadosol
 fi
 # Check firmware if updated. 
 if [`uname -r` != "4.9.47-rt37-6.1.0f0"] 
