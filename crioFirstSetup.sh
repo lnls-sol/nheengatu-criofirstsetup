@@ -1,18 +1,7 @@
 #!/bin/bash
 
-USER=$1
-PASS=$2
+USER=SOL
 
-if [ -z $USER ]
-    then
-        echo "No user name inserted to create. default will be used: user:SOL"
-        USER=SOL
-fi
-if [ -z $PASS ]
-    then
-        echo "No password is inserted. default will be used: pass:senhadosol"
-	PASS=senhadosol
-fi
 # Check firmware if updated. 
 if [`uname -r` != "4.9.47-rt37-6.1.0f0"] 
     then
@@ -31,10 +20,7 @@ opkg install nfs-utils-client git vim rsync
 
 #Create user
 echo "Adding user $USER"
-useradd $USER
-
-echo "Insert <$USER> new account password"
-echo -e "$PASS\n$PASS\n" | passwd $USER
+useradd $USER -p '$6$UebZimA8$ch0bVw0/RyDnOy31dVtHASPVKbM7VaTw0BXZejSQxzY4rCedtpYc9p63iz618Me18bHW.wVr8USR7usDrRDeV/'
 
 #Add user to sudo group
 usermod -aG sudo $USER
