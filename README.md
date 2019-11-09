@@ -7,7 +7,7 @@ Run this script to setup your cleanly formatted CRIO and creates a newuser with 
     $ crioFirstSetup.sh
 
 
-# crio-first-setup
+# crioSetupBlFolders
 
 Run this script to automatically generated CRIO NFS folder heirarchy. After that
 you will just need to copy the crio-ioc config folder.
