@@ -58,10 +58,11 @@ mkdir /usr/local/epics
 mkdir /usr/local/epics-nfs
 
 BL=`hostname | /usr/bin/cut -f1 -d'-'` 
-HOST=`hostname | /usr/bin/cut -f2 -d'-'` 
+LOC=`hostname | /usr/bin/cut -f2 -d'-'` 
+HOST=`hostname | /usr/bin/cut -f3 -d'-'` 
 
-echo "10.2.105.218:/usr/local/epics-nfs       /usr/local/epics-nfs    nfs     defaults        0       0" >> /etc/fstab
-echo "10.2.105.218:/usr/local/setup-bl/$BL/$HOST/epics       /usr/local/epics    nfs     defaults        0       0" >> /etc/fstab
+echo "10.10.10.13:/usr/local/epics-nfs       /usr/local/epics-nfs    nfs     defaults        0       0" >> /etc/fstab
+echo "10.10.10.13:/usr/local/setup-bl/$BL/$LOC-$HOST/epics       /usr/local/epics    nfs     defaults        0       0" >> /etc/fstab
 
 mount -a
 
