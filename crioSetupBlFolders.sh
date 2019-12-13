@@ -11,7 +11,7 @@ if [ -z $CRIONAME ] || [ -z $CRIOIOCPATH ] || [ -z $CRIOLOC ]
         exit
 fi
 
-if [ ! -d /usr/local/epics-nfs/apps/crio-ioc/$CRIOIOCPATH ]
+if [ ! -d /usr/local/epics-nfs/apps/R3.15.6/crio-ioc/$CRIOIOCPATH ]
     then
         echo "WARNING: Directory /usr/local/epics-nfs/apps/crio-ioc/$CRIOIOCPATH does not exist."
 fi
@@ -22,5 +22,5 @@ mkdir -p epics/apps/config
 cd epics
 ln -s /usr/local/epics-nfs/base/R3.15.6 base
 cd apps
-ln -s /usr/local/epics-nfs/apps/crio-ioc/$CRIOIOCPATH crio-ioc
+ln -s /usr/local/epics-nfs/apps/R3.15.6/crio-ioc/$CRIOIOCPATH crio-ioc
 cp ../../../crio-ioc.cmd config/.
