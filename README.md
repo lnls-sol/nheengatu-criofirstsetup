@@ -14,8 +14,8 @@ you will just need to copy the crio-ioc config folder.
 
 ## Run
 
-    $ crioSetupBlFolders.sh <CRIO postfix> <NFS CRIO IOC to be used>
+    $ ./crioSetupBlFolders.sh <CRIO LOCATION> <CRIO POSTFIX> <CRIO IOC FOLDER NAME>
 
 ## Example
 
-    $ crioSetupBlFolders.sh CRIO5 2019_10_24_01
+    $ ./crioSetupBlFolders.sh A CRIO06 2019_12_12_01
