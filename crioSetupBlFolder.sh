@@ -8,12 +8,13 @@ if [ -z $CRIONAME ] || [ -z $CRIOIOCPATH ] || [ -z $CRIOLOC ]
     then
         echo "CRIO chassi name postfix or latest CRIO IOC folder name not inserted."
         echo "usage: ./crioSetupBlFolders.sh <CRIO LOCATION> <CRIO POSTFIX> <CRIO IOC FOLDER NAME>"
+        echo "example: ./crioSetupBlFolder.sh A CRIO06 2019_12_12_01"
         exit
 fi
 
 if [ ! -d /usr/local/epics-nfs/apps/R3.15.6/crio-ioc/$CRIOIOCPATH ]
     then
-        echo "WARNING: Directory /usr/local/epics-nfs/apps/crio-ioc/$CRIOIOCPATH does not exist."
+        echo "WARNING: Directory /usr/local/epics-nfs/apps/R3.15.6/crio-ioc/$CRIOIOCPATH does not exist."
 fi
 
 mkdir -p "$CRIOLOC-$CRIONAME"
