@@ -18,6 +18,7 @@ opkg install nfs-utils-client git vim rsync
 
 
 
+
 #Create user
 echo "Adding user $USER"
 useradd $USER -p '$6$UebZimA8$ch0bVw0/RyDnOy31dVtHASPVKbM7VaTw0BXZejSQxzY4rCedtpYc9p63iz618Me18bHW.wVr8USR7usDrRDeV/'
@@ -39,11 +40,22 @@ usermod -m -d /home/ABTLUS/$USER $USER
 chmod 755 /bin/hostname
 
 
+
+
 echo "------------DONE SETTING UP USER AND REPOSITORIES---------------"
-echo "..."
+echo ""
+echo ""
+echo "------------Setting up PBIS. You will need to insert the AD USER password when prompted ---------------"
+#pbis configuration
+echo "arch amd64 16" >> /etc/opkg/arch.conf
+opkg install --force-overwrite files/pbis-open-upgrade_9.1.0.551_amd64.deb files/pbis-open-dev_9.1.0.551_amd64.deb files/pbis-open_9.1.0.551_amd64.deb
+/opt/pbis/bin/domainjoin-cli join --ou "ou=DC,ou=LNLS,dc=abtlus,dc=org,dc=br" abtlus.org.br $ADUSER
+/opt/pbis/bin/config AssumeDefaultDomain true
+/opt/pbis/bin/config HomeDirTemplate %H/%D/%U
+/opt/pbis/bin/config LoginShellTemplate /bin/bash
 echo "-------------SETTING UP IOCS SCRIPT---------------"
-sudo cp iocs /etc/init.d
-sudo cp init-functions /etc/init.d
+sudo cp files/iocs /etc/init.d
+sudo cp files/init-functions /etc/init.d
 sudo ln -s /etc/init.d/iocs /bin/
 sudo /usr/sbin/update-rc.d iocs defaults
 echo "------------DONE SETTING UP IOCS SCRIPT---------------"
@@ -66,7 +78,7 @@ echo "10.10.10.13:/usr/local/setup-bl/$BL/$LOC-$HOST/epics       /usr/local/epic
 
 mount -a
 
-cp epics.sh /etc/profile.d
+cp files/epics.sh /etc/profile.d
 
 echo "/usr/local/epics/base/lib/linux-x86_64" > /etc/ld.so.conf.d/epics.conf
 echo "/usr/local/epics-nfs/lib/crio-libs/2019_12_12_01/lib" >> /etc/ld.so.conf.d/epics.conf
@@ -74,9 +86,11 @@ ldconfig
 
 . /etc/profile.d/epics.sh
 
-cp S95mountnfs /etc/rc5.d
+cp files/S95mountnfs /etc/rc5.d
 
 # umount nfs partitions before stop server (this prevent bug on reboot/shutdown)
-cp K19umount /etc/rc6.d/
-cp K19umount /etc/rc0.d/
+cp files/K19umount /etc/rc6.d/
+cp files/K19umount /etc/rc0.d/
 echo "-------------DONE SETTING UP NFS---------------"
+echo "rebooting..."
+reboot

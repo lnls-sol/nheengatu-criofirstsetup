@@ -1,0 +1,4 @@
+#!/bin/bash
+umount /usr/local/epics
+umount /usr/local/epics-nfs
+exit 0 
