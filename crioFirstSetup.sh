@@ -2,6 +2,17 @@
 
 USER=SOL
 
+
+if [ -z $1 ]
+    then
+    echo "Wrong number of inputs. usage: ./crioFirstSetup.sh <Active Directory enabled user>"
+    exit  
+else
+    ADUSER=$1
+    echo $ADUSER
+fi
+
+
 # Check firmware if updated. 
 if [ `uname -r` != "4.14.87-rt49-cg-7.0.0f0-x64-189" ] && [ `uname -r` != "4.14.87-rt49-cg-7.1.0f0-x64-41" ]
     then
@@ -10,6 +21,7 @@ if [ `uname -r` != "4.14.87-rt49-cg-7.0.0f0-x64-189" ] && [ `uname -r` != "4.14.
 else
 	echo "Found up-to-date firmware version. continuing..."
 fi
+
 
 # Print repositories 2019
 cat /etc/opkg/base-feeds.conf
