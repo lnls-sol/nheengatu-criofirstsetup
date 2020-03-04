@@ -3,13 +3,15 @@
 USER=SOL
 
 # Check firmware if updated. 
-if [`uname -r` != "4.9.47-rt37-6.1.0f0"] 
+if [ `uname -r` != "4.14.87-rt49-cg-7.0.0f0-x64-189" ] && [ `uname -r` != "4.14.87-rt49-cg-7.1.0f0-x64-41" ]
     then
-        echo "Kernel was not updated to 4.9.47-rt37-6.1.0f0. Please update firmware from NI-MAX."
+        echo "Kernel was not updated to 4.14.87-rt49-cg-7.0.0f0-x64-189 or 4.14.87-rt49-cg-7.1.0f0-x64-41. Please update firmware from NI-MAX."
         exit
+else
+	echo "Found up-to-date firmware version. continuing..."
 fi
 
-# Print repositories 2018.5
+# Print repositories 2019
 cat /etc/opkg/base-feeds.conf
 
 #Update and install useful stuff
@@ -69,9 +71,16 @@ echo "..."
 mkdir /usr/local/epics
 mkdir /usr/local/epics-nfs
 
-BL=`hostname | /usr/bin/cut -f1 -d'-'` 
-LOC=`hostname | /usr/bin/cut -f2 -d'-'` 
-HOST=`hostname | /usr/bin/cut -f3 -d'-'` 
+# Hostname example: s-mnc-rio01-b
+#
+# s:      short for Lnls
+# mnc:    short for MANACA beamline
+# rio01:  CompactRIO #01
+# b:      hutch B
+BL=`hostname | tr a-z A-Z | /usr/bin/cut -f2 -d'-'`
+LOC=`hostname | tr a-z A-Z | /usr/bin/cut -f4 -d'-'`
+HOST=`hostname | tr a-z A-Z | /usr/bin/cut -f3 -d'-'`
+
 
 echo "10.10.10.13:/usr/local/epics-nfs       /usr/local/epics-nfs    nfs     defaults        0       0" >> /etc/fstab
 echo "10.10.10.13:/usr/local/setup-bl/$BL/$LOC-$HOST/epics       /usr/local/epics    nfs     defaults        0       0" >> /etc/fstab
