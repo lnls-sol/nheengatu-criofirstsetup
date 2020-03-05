@@ -95,7 +95,7 @@ HOST=`hostname | tr a-z A-Z | /usr/bin/cut -f3 -d'-'`
 
 
 echo "10.10.10.13:/usr/local/epics-nfs       /usr/local/epics-nfs    nfs     defaults        0       0" >> /etc/fstab
-echo "10.10.10.13:/usr/local/setup-bl/$BL/C$LOC-$HOST/epics       /usr/local/epics    nfs     defaults        0       0" >> /etc/fstab
+echo "10.10.10.13:/usr/local/setup-bl/$BL/$LOC-C$HOST/epics       /usr/local/epics    nfs     defaults        0       0" >> /etc/fstab
 
 mount -a
 
