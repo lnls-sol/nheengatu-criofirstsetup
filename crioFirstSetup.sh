@@ -107,7 +107,7 @@ ldconfig
 
 . /etc/profile.d/epics.sh
 
-cp files/S95mountnfs /etc/rc5.d
+cp files/fstab /etc/network/if-up.d/.
 
 # umount nfs partitions before stop server (this prevent bug on reboot/shutdown)
 cp files/K19umount /etc/rc6.d/
