@@ -95,7 +95,9 @@ HOST=`hostname | tr a-z A-Z | /usr/bin/cut -f3 -d'-'`
 
 
 echo "10.10.10.13:/usr/local/epics-nfs       /usr/local/epics-nfs    nfs     defaults        0       0" >> /etc/fstab
-echo "10.10.10.13:/usr/local/setup-bl/$BL/$LOC-C$HOST/epics       /usr/local/epics    nfs     defaults        0       0" >> /etc/fstab
+echo "10.10.10.13:/usr/local/setup-bl/$BL/$LOC-$HOST/epics       /usr/local/epics    nfs     defaults        0       0" >> /etc/fstab
+
+cp files/fstab /etc/network/if-up.d/.
 
 mount -a
 
@@ -107,7 +109,7 @@ ldconfig
 
 . /etc/profile.d/epics.sh
 
-cp files/fstab /etc/network/if-up.d/.
+
 
 # umount nfs partitions before stop server (this prevent bug on reboot/shutdown)
 cp files/K19umount /etc/rc6.d/
