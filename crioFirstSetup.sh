@@ -115,5 +115,5 @@ ldconfig
 cp files/K19umount /etc/rc6.d/
 cp files/K19umount /etc/rc0.d/
 echo "-------------DONE SETTING UP NFS---------------"
-echo "rebooting..."
-reboot
+#echo "rebooting..."
+#reboot
