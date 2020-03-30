@@ -73,3 +73,5 @@ create_monitor_set("crioioc.req", 1, "")
 dbl
 
 EOF
+
+chmod 755 config/crio-ioc.cmd
