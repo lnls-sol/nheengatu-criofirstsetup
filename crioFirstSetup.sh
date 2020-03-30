@@ -28,7 +28,7 @@ cat /etc/opkg/base-feeds.conf
 
 #Update and install useful stuff
 opkg update
-opkg install nfs-utils-client git vim rsync
+opkg install nfs-utils-client git vim rsync python3 screen
 
 
 
@@ -115,5 +115,10 @@ ldconfig
 cp files/K19umount /etc/rc6.d/
 cp files/K19umount /etc/rc0.d/
 echo "-------------DONE SETTING UP NFS---------------"
+
+echo "-------------Installing recsync script---------------"
+cp files/iocsd.py /usr/bin
+
+
 #echo "rebooting..."
 #reboot
