@@ -87,11 +87,13 @@ mkdir /usr/local/epics-nfs
 #
 # s:      short for Lnls
 # mnc:    short for MANACA beamline
-# rio01:  CompactRIO #01
 # b:      hutch B
+# rio01:  CompactRIO #01
+
+
 BL=`hostname | tr a-z A-Z | /usr/bin/cut -f2 -d'-'`
-LOC=`hostname | tr a-z A-Z | /usr/bin/cut -f4 -d'-'`
-HOST=`hostname | tr a-z A-Z | /usr/bin/cut -f3 -d'-'`
+LOC=`hostname | tr a-z A-Z | /usr/bin/cut -f3 -d'-'`
+HOST=`hostname | tr a-z A-Z | /usr/bin/cut -f4 -d'-'`
 
 
 echo "10.10.10.13:/usr/local/epics-nfs       /usr/local/epics-nfs    nfs     defaults        0       0" >> /etc/fstab
