@@ -114,8 +114,8 @@ ldconfig
 
 
 # umount nfs partitions before stop server (this prevent bug on reboot/shutdown)
-cp files/K19umount /etc/rc6.d/
-cp files/K19umount /etc/rc0.d/
+cp files/K06umount /etc/rc6.d/
+cp files/K06umount /etc/rc0.d/
 echo "-------------DONE SETTING UP NFS---------------"
 
 echo "-------------Installing recsync script---------------"
