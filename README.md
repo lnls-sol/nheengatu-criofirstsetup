@@ -22,4 +22,4 @@ you will just need to copy the crio-ioc config folder.
 
 ## Example
 
-    $ ./crioSetupBlFolders.sh A CRIO06 2019_12_12_01
+    $ ./crioSetupBlFolders.sh A CRIO06 2020_05_11_01

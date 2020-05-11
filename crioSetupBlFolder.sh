@@ -8,7 +8,7 @@ if [ -z $CRIONAME ] || [ -z $CRIOIOCPATH ] || [ -z $CRIOLOC ]
     then
         echo "CRIO chassi name postfix or latest CRIO IOC folder name not inserted."
         echo "usage: ./crioSetupBlFolders.sh <CRIO LOCATION> <CRIO POSTFIX> <CRIO IOC FOLDER NAME>"
-        echo "example: ./crioSetupBlFolder.sh A CRIO06 2019_12_12_01"
+        echo "example: ./crioSetupBlFolder.sh A CRIO06 2020_05_11_01"
         exit
 fi
 
