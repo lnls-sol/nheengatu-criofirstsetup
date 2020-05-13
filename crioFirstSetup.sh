@@ -2,15 +2,16 @@
 
 USER=SOL
 
+reboot () { echo 'Reboot? (y/n)' && read x && [[ "$x" == "y" ]] && /sbin/reboot; }
 
-#if [ -z $1 ]
-#    then
-#    echo "Wrong number of inputs. usage: ./crioFirstSetup.sh <Active Directory enabled user>"
-#    exit  
-#else
-#    ADUSER=$1
+if [ -z $1 ]
+    then
+    echo "Wrong number of inputs. usage: ./crioFirstSetup.sh <Active Directory enabled user>"
+    exit  
+else
+    ADUSER=$1
 #    echo $ADUSER
-#fi
+fi
 
 
 # Check firmware if updated. 
@@ -61,12 +62,12 @@ echo ""
 echo ""
 echo "------------Setting up PBIS. You will need to insert the AD USER password when prompted ---------------"
 #pbis configuration
-#echo "arch amd64 16" >> /etc/opkg/arch.conf
-#opkg install --force-overwrite files/pbis-open-upgrade_9.1.0.551_amd64.deb files/pbis-open-dev_9.1.0.551_amd64.deb files/pbis-open_9.1.0.551_amd64.deb
-#/opt/pbis/bin/domainjoin-cli join --ou "ou=DC,ou=LNLS,dc=abtlus,dc=org,dc=br" abtlus.org.br $ADUSER
-#/opt/pbis/bin/config AssumeDefaultDomain true
-#/opt/pbis/bin/config HomeDirTemplate %H/%D/%U
-#/opt/pbis/bin/config LoginShellTemplate /bin/bash
+echo "arch amd64 16" >> /etc/opkg/arch.conf
+opkg install --force-overwrite files/pbis-open-upgrade_9.1.0.551_amd64.deb files/pbis-open-dev_9.1.0.551_amd64.deb files/pbis-open_9.1.0.551_amd64.deb
+/opt/pbis/bin/domainjoin-cli join --ou "ou=DC,ou=LNLS,dc=abtlus,dc=org,dc=br" abtlus.org.br $ADUSER
+/opt/pbis/bin/config AssumeDefaultDomain true
+/opt/pbis/bin/config HomeDirTemplate %H/%D/%U
+/opt/pbis/bin/config LoginShellTemplate /bin/bash
 echo "-------------SETTING UP IOCS SCRIPT---------------"
 sudo cp files/iocs /etc/init.d
 sudo cp files/init-functions /etc/init.d
@@ -121,6 +122,4 @@ echo "-------------DONE SETTING UP NFS---------------"
 echo "-------------Installing recsync script---------------"
 cp files/iocsd.py /usr/bin
 
-
-#echo "rebooting..."
-#reboot
+reboot
