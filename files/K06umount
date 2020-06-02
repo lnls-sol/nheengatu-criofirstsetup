@@ -1,4 +1,6 @@
 #!/bin/bash
-umount /usr/local/epics
-umount /usr/local/epics-nfs
+/bin/iocs stop
+/bin/iocs stop
+umount -l /usr/local/epics
+umount -l /usr/local/epics-nfs
 exit 0 
