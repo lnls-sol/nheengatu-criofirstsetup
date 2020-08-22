@@ -63,6 +63,8 @@ dbLoadTemplate "${CONFIG}/scaler.db.sub"
 dbLoadTemplate "${CONFIG}/waveform.db.sub"
 dbLoadTemplate "${CONFIG}/mbbi.db.sub"
 dbLoadTemplate "${CONFIG}/mbbo.db.sub"
+dbLoadTemplate "${CONFIG}/stringin.db.sub"
+dbLoadTemplate "${CONFIG}/stringout.db.sub"
 iocInit
 
 #Set initial value to a PV
