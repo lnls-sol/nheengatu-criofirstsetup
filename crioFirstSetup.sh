@@ -69,17 +69,20 @@ opkg install --force-overwrite files/pbis-open-upgrade_9.1.0.551_amd64.deb files
 /opt/pbis/bin/config HomeDirTemplate %H/%D/%U
 /opt/pbis/bin/config LoginShellTemplate /bin/bash
 echo "-------------SETTING UP IOCS SCRIPT---------------"
-sudo cp files/iocs /etc/init.d
-sudo cp files/init-functions /etc/init.d
-sudo ln -s /etc/init.d/iocs /bin/
-sudo /usr/sbin/update-rc.d iocs defaults
+cp files/iocsstart /etc/init.d
+cp files/init-functions /etc/init.d
+cp files/iocs /bin/
+ln -s /etc/init.d/iocsstart /etc/rc2.d/S99iocsstart
+ln -s /etc/init.d/iocsstart /etc/rc3.d/S99iocsstart
+ln -s /etc/init.d/iocsstart /etc/rc4.d/S99iocsstart
+ln -s /etc/init.d/iocsstart /etc/rc5.d/S99iocsstart
 echo "------------DONE SETTING UP IOCS SCRIPT---------------"
 echo "..."
 echo "-------------SETTING UP AutoSave folder ---------------"
 mkdir -p /opt/autosave
 chmod 777 /opt/autosave
 echo "..."
-echo "-------------SETTING UP NFS---------------"
+echo "-------------SETTING UP NFS & EPICS ---------------"
 echo "..."
 mkdir /usr/local/epics
 mkdir /usr/local/epics-nfs
@@ -113,13 +116,21 @@ ldconfig
 . /etc/profile.d/epics.sh
 
 
-
 # umount nfs partitions before stop server (this prevent bug on reboot/shutdown)
-cp files/K06umount /etc/rc6.d/
-cp files/K06umount /etc/rc0.d/
-echo "-------------DONE SETTING UP NFS---------------"
+cp files/umountnfs /etc/init.d/
+ln -s /etc/init.d/umountnfs /etc/rc6.d/K01umountnfs
+ln -s /etc/init.d/umountnfs /etc/rc1.d/K01umountnfs
+ln -s /etc/init.d/umountnfs /etc/rc0.d/K01umountnfs
+
+
 
 echo "-------------Installing recsync script---------------"
 cp files/iocsd.py /usr/bin
+cp files/iocsd /etc/init.d/
+ln -s /etc/init.d/iocsd /etc/rc2.d/S99iocsd
+ln -s /etc/init.d/iocsd /etc/rc3.d/S99iocsd
+ln -s /etc/init.d/iocsd /etc/rc4.d/S99iocsd
+ln -s /etc/init.d/iocsd /etc/rc5.d/S99iocsd
+
 
 reboot
