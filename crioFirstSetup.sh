@@ -15,14 +15,13 @@ fi
 
 
 # Check firmware if updated. 
-if [ `uname -r` != "4.14.87-rt49-cg-7.0.0f0-x64-189" ] && [ `uname -r` != "4.14.87-rt49-cg-7.1.0f0-x64-41" ]
+if [ `uname -r` != "4.14.146-rt67-cg-8.0.0f1-x64-139" ] 
     then
-        echo "Kernel was not updated to 4.14.87-rt49-cg-7.0.0f0-x64-189 or 4.14.87-rt49-cg-7.1.0f0-x64-41. Please update firmware from NI-MAX."
+        echo "Kernel was not updated to 4.14.146-rt67-cg-8.0.0f1-x64-139. Please update firmware from NI-MAX."
         exit
 else
 	echo "Found up-to-date firmware version. continuing..."
 fi
-
 
 # Print repositories 2019
 cat /etc/opkg/base-feeds.conf
