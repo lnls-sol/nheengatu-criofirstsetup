@@ -28,7 +28,7 @@ cat /etc/opkg/base-feeds.conf
 
 #Update and install useful stuff
 opkg update
-opkg install nfs-utils-client git vim rsync python3 screen
+opkg install nfs-utils-client git vim rsync python3 screen ntp ntp-utils ntpdate
 
 
 
@@ -107,7 +107,7 @@ cp files/fstab /etc/network/if-up.d/.
 mount -a
 
 cp files/epics.sh /etc/profile.d
-
+server 0.natinst.pool.ntp.org
 echo "/usr/local/epics/base/lib/linux-x86_64" > /etc/ld.so.conf.d/epics.conf
 echo "/usr/local/epics-nfs/lib/crio-libs/2020_08_21_01/lib" >> /etc/ld.so.conf.d/epics.conf
 ldconfig
@@ -130,6 +130,19 @@ ln -s /etc/init.d/iocsd /etc/rc2.d/S99iocsd
 ln -s /etc/init.d/iocsd /etc/rc3.d/S99iocsd
 ln -s /etc/init.d/iocsd /etc/rc4.d/S99iocsd
 ln -s /etc/init.d/iocsd /etc/rc5.d/S99iocsd
+
+
+echo "-------------Fixing date time ---------------"
+rm /etc/natinst/share/localtime
+ln -s /usr/share/zoneinfo/Etc/GMT-3 /etc/natinst/share/localtime
+sed -i 's/server 0.natinst.pool.ntp.org//g' /etc/ntp.conf
+sed -i 's/server 1.natinst.pool.ntp.org//g' /etc/ntp.conf
+sed -i 's/server 2.natinst.pool.ntp.org//g' /etc/ntp.conf
+sed -i 's/server 3.natinst.pool.ntp.org//g' /etc/ntp.conf
+echo "server ntp.cnpem.br" >> /etc/ntp.conf
+ntpq -p
+sed -i 's/NTPSERVERS=""/NTPSERVERS="ntp.cnpem.br"/g' /etc/default/ntpdate
+ntpdate ntp.cnpem.br
 
 
 reboot
