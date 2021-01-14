@@ -67,20 +67,20 @@ opkg install --force-overwrite files/pbis-open-upgrade_9.1.0.551_amd64.deb files
 /opt/pbis/bin/config AssumeDefaultDomain true
 /opt/pbis/bin/config HomeDirTemplate %H/%D/%U
 /opt/pbis/bin/config LoginShellTemplate /bin/bash
+
 echo "-------------SETTING UP IOCS SCRIPT---------------"
-cp files/iocsstart /etc/init.d
+
 cp files/init-functions /etc/init.d
 cp files/iocs /bin/
-ln -s /etc/init.d/iocsstart /etc/rc2.d/S99iocsstart
-ln -s /etc/init.d/iocsstart /etc/rc3.d/S99iocsstart
-ln -s /etc/init.d/iocsstart /etc/rc4.d/S99iocsstart
-ln -s /etc/init.d/iocsstart /etc/rc5.d/S99iocsstart
-echo "------------DONE SETTING UP IOCS SCRIPT---------------"
+#setting up iocs script to run on if up
+cp files/iocsstart /etc/network/if-up.d/.
 echo "..."
+
 echo "-------------SETTING UP AutoSave folder ---------------"
 mkdir -p /opt/autosave
 chmod 777 /opt/autosave
 echo "..."
+
 echo "-------------SETTING UP NFS & EPICS ---------------"
 echo "..."
 mkdir /usr/local/epics
