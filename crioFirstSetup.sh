@@ -15,12 +15,12 @@ fi
 
 
 # Check firmware if updated. 
-if [ `uname -r` != "4.14.146-rt67-cg-8.0.0f1-x64-139" ] 
+if [[ `uname -r` == "4.14."* ]] 
     then
-        echo "Kernel was not updated to 4.14.146-rt67-cg-8.0.0f1-x64-139. Please update firmware from NI-MAX."
-        exit
+    	echo "Found up-to-date firmware version. continuing..."
 else
-	echo "Found up-to-date firmware version. continuing..."
+        echo "Kernel was not up to date. Please update firmware from NI-MAX."
+        exit
 fi
 
 # Print repositories 2019
