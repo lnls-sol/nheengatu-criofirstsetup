@@ -8,7 +8,7 @@ if [ -z $CRIONAME ] || [ -z $CRIOIOCPATH ] || [ -z $CRIOLOC ]
     then
         echo "CRIO chassi name postfix or latest CRIO IOC folder name not inserted."
         echo "usage: ./crioSetupBlFolders.sh <CRIO LOCATION> <CRIO POSTFIX> <CRIO IOC FOLDER NAME>"
-        echo "example: ./crioSetupBlFolder.sh A CRIO06 2020_05_11_01"
+        echo "example: ./crioSetupBlFolder.sh A CRIO06 2021_02_15_01"
         exit
 fi
 
@@ -42,14 +42,15 @@ cd ${TOP}
 dbLoadDatabase "dbd/CRIO.dbd"
 CRIO_registerRecordDeviceDriver pdbbase
 
-#Init recSync
+## Init recSync
 < "$(CONFIG)/init-recsync.cmd"
 
-
+## Autosave
 set_requestfile_path($(CONFIG))
 set_savefile_path($(AUTOSAVE))
-set_pass1_restoreFile("crioioc.sav", "")
+set_pass1_restoreFile("crioioc.sav")
 
+## Initialize Nheengatu
 crioSupSetup("${CONFIG}/cfg.ini" , 1)
 
 ## Load record instances
@@ -67,10 +68,8 @@ dbLoadTemplate "${CONFIG}/stringin.db.sub"
 dbLoadTemplate "${CONFIG}/stringout.db.sub"
 iocInit
 
-#Set initial value to a PV
-< "$(CONFIG)/init-pv.cmd"
-
-create_monitor_set("crioioc.req", 1, "")
+## Save every 30 seconds
+create_monitor_set("crioioc.req", 30, "")
 
 dbl
 
